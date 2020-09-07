@@ -1,4 +1,5 @@
 const { Router } = require('express');
+const cool = require('cool-ascii-faces');
 
 const authMiddleware = require('./app/middlewares/auth');
 
@@ -8,6 +9,8 @@ const SessionController = require('./app/controllers/SessionController');
 const JobsController = require('./app/controllers/JobsController');
 
 const routes = new Router();
+
+routes.get('/cool', (req, res) => res.send(cool()));
 
 routes.post('/women-register', WomenController.store);
 routes.post('/factory-register', FactoryController.store);
