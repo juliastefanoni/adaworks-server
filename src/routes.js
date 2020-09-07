@@ -10,7 +10,7 @@ const JobsController = require('./app/controllers/JobsController');
 
 const routes = new Router();
 
-routes.get('/cool', (req, res) => res.send(cool()));
+routes.get('/', (req, res) => res.send(cool()));
 
 routes.post('/women-register', WomenController.store);
 routes.post('/factory-register', FactoryController.store);
