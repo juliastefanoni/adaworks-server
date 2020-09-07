@@ -9,12 +9,11 @@ const config = {
     host: process.env.PG_HOST,
     port: process.env.PG_PORT,
     dialect: 'postgres',
-    dialectOptions: {
-      ssl: {
-        require: true,
-        rejectUnauthorized: false,
-      },
-      modifyUnauthorized: false
+    define: {
+      timestamps: true,
+      underscored: true,
+      underscoredAll: true,
+      freezeTableName: true,
     }
   },
   

@@ -9,9 +9,7 @@ const Jobs = require('../app/models/Jobs');
 
 const database = process.env.DATABASE_URL;
 
-let connection = '';
-
-if (process.env.DATABASE_URL) {
+if (process.env.NODE_ENV === 'production') {
   connection = new Sequelize(database, {
     define: {
       timestamps: true,
@@ -21,7 +19,7 @@ if (process.env.DATABASE_URL) {
     }
   });
 } else {
-  connection = new Sequelize(databaseConfig.process.env.NODE_ENV);
+  connection = new Sequelize(databaseConfig.development);
 }
 
 Women.init(connection);
