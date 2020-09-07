@@ -1,10 +1,10 @@
-import jwt from 'jsonwebtoken';
-import * as Yup from 'yup';
+const jwt = require('jsonwebtoken');
+const Yup = require('yup');
 
-import Factory from '../models/Factory';
-import Women from '../models/Women';
+const Factory = require('../models/Factory');
+const Women = require('../models/Women'); 
 
-import AuthConfig from '../../config/auth';
+const AuthConfig = require('../../config/auth');
 
 class SessionController {
   async store(request, response) {
@@ -62,4 +62,4 @@ class SessionController {
   }
 }
 
-export default new SessionController;
+module.exports = new SessionController;

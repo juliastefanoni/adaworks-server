@@ -1,27 +1,20 @@
   
-import Sequelize from 'sequelize';
+const { Sequelize } = require('sequelize');
 
-import databaseConfig from '../config/database';
+const databaseConfig = require('../config/database');
 
-import Women from '../app/models/Women';
-import Factory from '../app/models/Factory';
-import Jobs from '../app/models/Jobs';
+const Women = require('../app/models/Women');
+const Factory = require('../app/models/Factory');
+const Jobs = require('../app/models/Jobs');
 
 const models = [Women, Factory, Jobs];
 
-class Database {
-  constructor() {
-    this.init();
-  }
+const connection = new Sequelize(databaseConfig);
 
-  init() {
-    this.connection = new Sequelize(databaseConfig);
+Women.init(connection);
+Factory.init(connection);
+Jobs.init(connection);
 
-    models
-    .map( model => model.init(this.connection))
+Jobs.associate(connection.models);
 
-    models.map( model => model.associate && model.associate(this.connection.models));
-  }
-}
-
-export default new Database;
+module.exports = connection;

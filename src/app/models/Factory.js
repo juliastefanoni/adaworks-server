@@ -1,5 +1,5 @@
-import Sequelize, { Model } from 'sequelize';
-import bcrypt from 'bcryptjs';
+const { Sequelize, Model} = require('sequelize');
+const bcrypt = require('bcryptjs');
 
 class Factory extends Model{
   static init(sequelize) {
@@ -40,4 +40,4 @@ class Factory extends Model{
   }
 }
 
-export default Factory;
+module.exports = Factory;

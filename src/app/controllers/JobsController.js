@@ -1,7 +1,8 @@
-import * as Yup from 'yup';
-import Jobs from '../models/Jobs';
-import Factory from '../models/Factory';
- 
+const Yup = require('yup');
+
+const Jobs = require('../models/Jobs');
+const Factory = require('../models/Factory');
+
 class JobsController {
   async index(request, response) {
     const { page = 1} = request.query;
@@ -70,4 +71,4 @@ class JobsController {
   }
 }
  
-export default new JobsController();
+module.exports = new JobsController;

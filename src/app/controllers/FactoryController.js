@@ -1,7 +1,7 @@
-import * as Yup from 'yup';
-import Factory from '../models/Factory';
-import Women from '../models/Women';
- 
+const Yup = require('yup');
+const Factory = require('../models/Factory');
+const Women = require('../models/Women'); 
+
 class FactoryController {
   async index(request, response) {
     const { nickname } = request.query;
@@ -60,7 +60,11 @@ class FactoryController {
       return response.status(400).json({ error: 'Validation fails'});
     }
  
-    const FactoryExists = await Factory.findOne({ where: {cnpj: request.body.cnpj} });
+    const FactoryExists = await Factory.findOne({ 
+      where: {
+        cnpj: request.body.cnpj
+      } 
+    });
  
     if (FactoryExists) {
       return response.status(400).json({error: 'Factory already exists'});
@@ -100,4 +104,4 @@ class FactoryController {
   }
 }
  
-export default new FactoryController();
+module.exports = new FactoryController;

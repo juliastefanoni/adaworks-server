@@ -1,20 +1,20 @@
-import Sequelize, { Model } from 'sequelize';
-import bcrypt from 'bcryptjs';
+const { DataTypes, Model} = require('sequelize');
+const bcrypt = require('bcryptjs');
 
 class Women extends Model{
   static init(sequelize) {
     super.init({
-      name: Sequelize.STRING,
-      nickname: Sequelize.STRING,
-      email: Sequelize.STRING,
-      password: Sequelize.VIRTUAL,
-      password_hash: Sequelize.STRING,
-      description: Sequelize.STRING,
-      cpf: Sequelize.INTEGER,
-      linkForLinkedin: Sequelize.STRING,
-      experiences: Sequelize.ARRAY(Sequelize.JSONB),
-      agreeToTerms: Sequelize.BOOLEAN,
-      apply: Sequelize.BOOLEAN
+      name: DataTypes.STRING,
+      nickname: DataTypes.STRING,
+      email: DataTypes.STRING,
+      password: DataTypes.VIRTUAL,
+      password_hash: DataTypes.STRING,
+      description: DataTypes.STRING,
+      cpf: DataTypes.INTEGER,
+      linkForLinkedin: DataTypes.STRING,
+      experiences: DataTypes.ARRAY(DataTypes.JSONB),
+      agreeToTerms: DataTypes.BOOLEAN,
+      apply: DataTypes.BOOLEAN
     },
     {
       sequelize,
@@ -36,4 +36,4 @@ class Women extends Model{
   }
 }
 
-export default Women;
+module.exports = Women;

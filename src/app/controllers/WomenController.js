@@ -1,5 +1,6 @@
-import * as Yup from 'yup';
-import Women from '../models/Women';
+const Yup = require('yup');
+
+const Women = require('../models/Women');
  
 class WomenController {
   async store(request, response) {
@@ -46,4 +47,4 @@ class WomenController {
   }
 }
  
-export default new WomenController();
+module.exports = new WomenController;
