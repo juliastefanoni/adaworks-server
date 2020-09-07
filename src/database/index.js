@@ -7,9 +7,22 @@ const Women = require('../app/models/Women');
 const Factory = require('../app/models/Factory');
 const Jobs = require('../app/models/Jobs');
 
-const models = [Women, Factory, Jobs];
+const database = process.env.DATABASE_URL;
 
-const connection = new Sequelize(databaseConfig);
+let connection = '';
+
+if (process.env.DATABASE_URL) {
+  connection = new Sequelize(database, {
+    define: {
+      timestamps: true,
+      underscored: true,
+      underscoredAll: true,
+      freezeTableName: true,
+    }
+  });
+} else {
+  connection = new Sequelize(databaseConfig.process.env.NODE_ENV);
+}
 
 Women.init(connection);
 Factory.init(connection);
