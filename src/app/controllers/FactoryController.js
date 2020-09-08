@@ -1,6 +1,8 @@
 const Yup = require('yup');
+
 const Factory = require('../models/Factory');
 const Women = require('../models/Women'); 
+const GenerateToken = require('../utils/GenerateToken');
 
 class FactoryController {
   async index(request, response) {
@@ -88,6 +90,8 @@ class FactoryController {
       authorization,
       hire
     } = await Factory.create(request.body);
+
+    const token = await GenerateToken(id);
  
     return response.json({
       id,
@@ -99,7 +103,8 @@ class FactoryController {
       factoryName,
       agreeToTerms,
       authorization,
-      hire
+      hire,
+      token
     });
   }
 }

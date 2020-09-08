@@ -1,10 +1,8 @@
-const jwt = require('jsonwebtoken');
 const Yup = require('yup');
 
 const Factory = require('../models/Factory');
 const Women = require('../models/Women'); 
-
-const AuthConfig = require('../../config/auth');
+const GenerateToken = require('../utils/GenerateToken');
 
 class SessionController {
   async store(request, response) {
@@ -31,16 +29,15 @@ class SessionController {
         return response.status(401).json( {error: 'password does not match' });
       }
 
-      const { id, name} = factory;
+      const { id, name, nickname} = factory;
 
       return response.json({
         id,
         name,
+        nickname,
         email,
         isFactory: true,
-        token: jwt.sign({ id }, AuthConfig.secret, {
-          expiresIn: AuthConfig.expiresIn
-        }),
+        token: GenerateToken(id),
       })
     }
 
@@ -48,16 +45,15 @@ class SessionController {
       return response.status(401).json( {error: 'password does not match' });
     }
 
-    const { id, name } = women;
+    const { id, name, nickname } = women;
 
     return response.json({
       id,
       name,
+      nickname,
       email,
       isFactory: false,
-      token: jwt.sign({ id }, AuthConfig.secret, {
-        expiresIn: AuthConfig.expiresIn
-      }),
+      token: GenerateToken(id)
     })
   }
 }

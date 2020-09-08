@@ -1,7 +1,8 @@
 const Yup = require('yup');
 
 const Women = require('../models/Women');
- 
+const GenerateToken = require('../utils/GenerateToken');
+
 class WomenController {
   async store(request, response) {
     const schema = Yup.object().shape({
@@ -35,6 +36,8 @@ class WomenController {
       cpf,
       agreeToTerms
     } = await Women.create(request.body);
+
+    const token = await GenerateToken(id);
  
     return response.json({
       id,
@@ -42,7 +45,8 @@ class WomenController {
       nickname,
       email,
       cpf,
-      agreeToTerms
+      agreeToTerms,
+      token
     });
   }
 }
