@@ -62,20 +62,26 @@ class FactoryController {
       return response.status(400).json({ error: 'Validation fails'});
     }
  
-    const FactoryExists = await Factory.findOne({ 
+    const FactoryExistsWithCNPJ = await Factory.findOne({ 
       where: {
         cnpj: request.body.cnpj
       } 
     });
+
+    const FactoryExistsWithEmail = await Factory.findOne({ 
+      where: {
+        email: request.body.email
+      } 
+    });
  
-    if (FactoryExists) {
-      return response.status(400).json({error: 'Factory already exists'});
+    if (FactoryExistsWithCNPJ) {
+      return response.status(400).json({error: 'Factory already exists with that CNPJ'});
     }
 
-    const womenAlreadyRegistered = await Women.findOne({ where: {email: request.body.email} });
+    const womenAlreadyRegisteredWithEmail = await Women.findOne({ where: {email: request.body.email} });
 
-    if (womenAlreadyRegistered) {
-      return response.status(400).json({error: 'User already exists'});
+    if (womenAlreadyRegisteredWithEmail || FactoryExistsWithEmail) {
+      return response.status(400).json({error: 'User already exists with that email'});
     }
  
     const {
@@ -104,7 +110,8 @@ class FactoryController {
       agreeToTerms,
       authorization,
       hire,
-      token
+      token,
+      isFactory: true
     });
   }
 }

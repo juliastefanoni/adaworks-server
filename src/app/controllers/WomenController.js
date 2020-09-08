@@ -22,9 +22,10 @@ class WomenController {
       return response.status(400).json({ error: 'Validation fails'});
     }
  
-    const WomenExists = await Women.findOne({ where: {email: request.body.email} });
+    const WomenExistsWithEmail = await Women.findOne({ where: {email: request.body.email} });
+    const WomenExistsWithCPF = await Women.findOne({ where: {cpf: request.body.cpf} });
  
-    if (WomenExists) {
+    if (WomenExistsWithEmail || WomenExistsWithCPF) {
       return response.status(400).json({error: 'Register already exists'});
     }
  
@@ -46,7 +47,8 @@ class WomenController {
       email,
       cpf,
       agreeToTerms,
-      token
+      token,
+      isFactory: false
     });
   }
 }
